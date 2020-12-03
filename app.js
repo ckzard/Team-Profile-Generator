@@ -37,25 +37,40 @@ function getEmployee () {
             type : "input",
             name : "id",
             message : "What is the employee's ID?"
-        },  
+        },
+        {
+            type : "input",
+            name : "github",
+            message : "What is your github id?",
+            when : (answers) => answers.role === "Engineer",
+        },
+        {
+            type : "input",
+            name : "school",
+            message : "What college or university did you attend?",
+            when : (answers) => answers.role === "Intern",
+        },
+        {
+            type : "input",
+            name : "officeNumber",
+            message : "What is your office number?",
+            when : (answers) => answers.role === "Manager",
+        },   
         
     
     ]).then(answers => {
         if (answers.role == "Engineer") {
-            const gitHub = engineerGithub();
-            const employee = new Engineer(answers.name, answers.role, answers.email, answers.id, gitHub);
+            const employee = new Engineer(answers.name, answers.role, answers.email, answers.id, answers.github);
             employees.push(employee);
             console.log(employees);
 
         } else if (answers.role == "Intern") {
-            var intSchool = internSchool();
-            const employee = new Intern (answers.name, answers.role, answers.email, answers.id, intSchool);
+            const employee = new Intern (answers.name, answers.role, answers.email, answers.id, answers.school);
             employees.push(employee);
             console.log(employees);
 
         } else if (answers.role == "Manager") {
-            var manNumber = managerNumber();
-            const employee = new Manager (answers.name, answers.role, answers.email, answers.id, manNumber);
+            const employee = new Manager (answers.name, answers.role, answers.email, answers.id, answers.officeNumber);
             employees.push(employee);
             console.log(employees);
         }
