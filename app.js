@@ -81,7 +81,7 @@ inquirer.prompt([
         getEmployee();
     } else {
         console.log(employees);
-        fs.appendFileSync("./templates/test.html", render(employees), (err) =>
+        fs.writeFileSync("./templates/test.html", render(employees), (err) =>
         err ? console.log(err) : console.log("success!"))
     }
     
