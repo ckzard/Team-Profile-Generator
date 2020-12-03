@@ -42,15 +42,20 @@ function getEmployee () {
     
     ]).then(answers => {
         if (answers.role == "Engineer") {
-            const employee = new Engineer(answers.name, answers.role, answers.email, answers.id, "ckzard");
+            const gitHub = engineerGithub();
+            const employee = new Engineer(answers.name, answers.role, answers.email, answers.id, gitHub);
             employees.push(employee);
             console.log(employees);
+
         } else if (answers.role == "Intern") {
-            const employee = new Intern (answers.name, answers.role, answers.email, answers.id, "UofT");
+            var intSchool = internSchool();
+            const employee = new Intern (answers.name, answers.role, answers.email, answers.id, intSchool);
             employees.push(employee);
             console.log(employees);
+
         } else if (answers.role == "Manager") {
-            const employee = new Manager (answers.name, answers.role, answers.email, answers.id, "6470901001");
+            var manNumber = managerNumber();
+            const employee = new Manager (answers.name, answers.role, answers.email, answers.id, manNumber);
             employees.push(employee);
             console.log(employees);
         }
@@ -68,24 +73,88 @@ function getEmployee () {
 
 function checkDone() {
 
-inquirer.prompt([
-    {
-        type : "confirm",
-        name : "checkDone",
-        message : "Add another employee?",
-        default : true,
-    },
-  ])
-  .then(answers => {
-    if (answers.checkDone === true) {
-        getEmployee();
-    } else {
-        console.log(employees);
-        fs.writeFileSync("./templates/test.html", render(employees), (err) =>
-        err ? console.log(err) : console.log("success!"))
-    }
-    
-  })
+    inquirer.prompt([
+        {
+            type : "confirm",
+            name : "checkDone",
+            message : "Add another employee?",
+            default : true,
+        },
+    ])
+    .then(answers => {
+        if (answers.checkDone === true) {
+            getEmployee();
+        } else {
+            console.log(employees);
+            fs.writeFileSync("./templates/test.html", render(employees), (err) =>
+            err ? console.log(err) : console.log("success!"))
+        }
+        
+    })
+}
+
+function engineerGithub () {
+    inquirer.prompt([
+        {
+            type : "input",
+            name : "github",
+            message : "What is your github id?"
+        },
+
+    ]).then(answers => {
+        if (answers.name == "ckzard") {
+            console.log("so you are the famous christopher burns")
+            return answers.gitHub;
+        } else {
+            console.log("Thats great...");
+            return answers.github;
+        }
+
+    }).catch(error => {
+        if(error.isTtyError) {
+          // Prompt couldn't be rendered in the current environment
+        } else {
+          // Something else when wrong
+        }
+      });
+}
+
+function internSchool () {
+    inquirer.prompt([
+        {
+            type : "input",
+            name : "school",
+            message : "Where did you go to school?"
+        }
+    ]).then(answers => {
+        return answers.school;
+
+    }).catch(error => {
+        if(error.isTtyError) {
+          // Prompt couldn't be rendered in the current environment
+        } else {
+          // Something else when wrong
+        }
+      });
+}
+
+function managerNumber () {
+    inquirer.prompt([
+        {
+            type : "input",
+            name : "officeNumber",
+            message : "What is your office number?"
+        }
+    ]).then(answers => {
+        return answers.officeNumber;
+
+    }).catch(error => {
+        if(error.isTtyError) {
+          // Prompt couldn't be rendered in the current environment
+        } else {
+          // Something else when wrong
+        }
+      });
 }
 
 init();
