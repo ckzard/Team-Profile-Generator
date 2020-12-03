@@ -37,16 +37,23 @@ function getEmployee () {
             type : "input",
             name : "id",
             message : "What is the employee's ID?"
-        },
-        {
-            type : "input",
-            name : "officeNumber",
-            message : "What is the employee's office number?"
-        },    
+        },  
         
     
     ]).then(answers => {
-        employees.push(answers);
+        if (answers.role == "Engineer") {
+            const employee = new Engineer(answers.name, answers.role, answers.email, answers.id, "ckzard");
+            employees.push(employee);
+            console.log(employees);
+        } else if (answers.role == "Intern") {
+            const employee = new Intern (answers.name, answers.role, answers.email, answers.id, "UofT");
+            employees.push(employee);
+            console.log(employees);
+        } else if (answers.role == "Manager") {
+            const employee = new Manager (answers.name, answers.role, answers.email, answers.id, "6470901001");
+            employees.push(employee);
+            console.log(employees);
+        }
         checkDone();
       })
       .catch(error => {
@@ -74,6 +81,8 @@ inquirer.prompt([
         getEmployee();
     } else {
         console.log(employees);
+        fs.appendFileSync("./templates/test.html", render(employees), (err) =>
+        err ? console.log(err) : console.log("success!"))
     }
     
   })
