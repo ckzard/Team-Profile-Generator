@@ -60,17 +60,17 @@ function getEmployee () {
     
     ]).then(answers => {
         if (answers.role == "Engineer") {
-            const employee = new Engineer(answers.name, answers.role, answers.email, answers.id, answers.github);
+            const employee = new Engineer(answers.name, answers.email, answers.id, answers.github);
             employees.push(employee);
             console.log(employees);
 
         } else if (answers.role == "Intern") {
-            const employee = new Intern (answers.name, answers.role, answers.email, answers.id, answers.school);
+            const employee = new Intern (answers.name, answers.email, answers.id, answers.school);
             employees.push(employee);
             console.log(employees);
 
         } else if (answers.role == "Manager") {
-            const employee = new Manager (answers.name, answers.role, answers.email, answers.id, answers.officeNumber);
+            const employee = new Manager (answers.name, answers.email, answers.id, answers.officeNumber);
             employees.push(employee);
             console.log(employees);
         }
