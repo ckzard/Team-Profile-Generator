@@ -101,7 +101,7 @@ function checkDone() {
             getEmployee();
         } else {
             console.log(employees);
-            fs.writeFileSync("./templates/test.html", render(employees), (err) =>
+            fs.writeFileSync("./output/team.html", render(employees), (err) =>
             err ? console.log(err) : console.log("success!"))
         }
         
